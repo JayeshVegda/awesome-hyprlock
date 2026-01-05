@@ -13,7 +13,7 @@ Inspired by [awesome-dotfiles](https://github.com/webpro/awesome-dotfiles) & [un
 
 | Preview | Author | Description |
 |--------|--------|-------------|
-| ![](screenshots/catppuccin-hyprlock.webp) | [Catppuccin](https://github.com/catppuccin) | Catppuccin theme for Hyprlock - Soothing pastel colors |
+| ![](screenshots/catppuccin-hyprlock.webp) | [Catppuccin](https://github.com/catppuccin/hyprlock) | Catppuccin theme for Hyprlock - Soothing pastel colors |
 
 ---
 
