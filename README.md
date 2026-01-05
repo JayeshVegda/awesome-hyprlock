@@ -13,8 +13,7 @@ Inspired by [awesome-dotfiles](https://github.com/webpro/awesome-dotfiles) & [un
 
 | Preview | Author | Description |
 |--------|--------|-------------|
-| ![](screenshots/jayesh-minimal.png) | [Jayesh](https://github.com/JayeshVegda) | Minimal blur, centered clock |
-| ![](screenshots/glass-lock.png) | [username](https://github.com/username/hyprlock) | Glassmorphism with swaybg |
+| ![](screenshots/catppuccin-hyprlock.webp) | [Catppuccin](https://github.com/catppuccin) | Catppuccin theme for Hyprlock - Soothing pastel colors |
 
 ---
 
