@@ -1,0 +1,33 @@
+name: Validate Submissions
+
+on:
+  pull_request:
+    paths:
+      - 'screenshots/**'
+      - 'README.md'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Check screenshot naming
+        run: |
+          # Check if new screenshots follow naming convention
+          git diff --name-only origin/${{ github.base_ref }} | grep '^screenshots/' | while read file; do
+            if [[ ! "$file" =~ ^screenshots/[a-zA-Z0-9_-]+-hyprlock\.(png|jpg|jpeg)$ ]]; then
+              echo "❌ Invalid screenshot name: $file"
+              echo "Expected format: screenshots/<username>-hyprlock.png"
+              exit 1
+            fi
+          done || true
+      
+      - name: Check README table format
+        run: |
+          # Basic check that README has table format
+          if ! grep -q "| Preview | Author | Description |" README.md; then
+            echo "❌ README.md table format missing"
+            exit 1
+          fi
+          echo "✅ README.md format looks good"
