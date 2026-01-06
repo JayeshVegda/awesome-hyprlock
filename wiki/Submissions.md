@@ -1,0 +1,3 @@
+- https://raw.githubusercontent.com/catppuccin/hyprlock/main/assets/catppuccin-mocha.webp | https://github.com/catppuccin/hyprlock | Catppuccin Mocha theme for Hyprlock
+- https://raw.githubusercontent.com/JaKooLit/Ja-Hyprland-Dots/main/Screenshots/hyprlock.png | https://github.com/JaKooLit/Ja-Hyprland-Dots | Frosted blur Hyprlock from JaKooLit's Hyprland dots
+- https://raw.githubusercontent.com/sachnr/hyprlock-themes/main/screenshots/mountain.png | https://github.com/sachnr/hyprlock-themes | Mountain-themed Hyprlock with centered clock

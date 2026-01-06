@@ -1,0 +1,118 @@
+name: Sync wiki submissions to README
+
+on:
+  gollum: {}
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0 * * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Checkout wiki
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}.wiki
+          path: wiki
+
+      - name: Sync submissions
+        id: sync
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          from urllib.parse import urlparse
+
+          root = Path(".")
+          readme_path = root / "README.md"
+          wiki_path = root / "wiki" / "Submissions.md"
+
+          start_marker = "<!-- SUBMISSIONS_START -->"
+          end_marker = "<!-- SUBMISSIONS_END -->"
+
+          text = readme_path.read_text()
+          if start_marker not in text or end_marker not in text:
+            raise SystemExit("Markers not found in README.md")
+
+          before, rest = text.split(start_marker, 1)
+          current_block, after = rest.split(end_marker, 1)
+
+          existing_repo_links = set()
+          link_pattern = re.compile(r"\]\((https?://[^\s)]+)\)")
+          for line in current_block.splitlines():
+            links = link_pattern.findall(line)
+            if len(links) >= 2:
+              existing_repo_links.add(links[1].lower())
+
+          def label_from_url(url: str) -> str:
+            path = urlparse(url).path.strip("/")
+            if "/" in path:
+              parts = path.split("/")
+              if len(parts) >= 2:
+                return f"{parts[-2]} / {parts[-1]}"
+            return url
+
+          new_entries = []
+          if wiki_path.exists():
+            for raw in wiki_path.read_text().splitlines():
+              if not raw.lstrip().startswith("-"):
+                continue
+              cleaned = raw.lstrip("-").strip()
+              parts = [p.strip() for p in cleaned.split("|")]
+              if len(parts) < 3:
+                continue
+              image, repo, desc = parts[0], parts[1], "|".join(parts[2:]).strip()
+              image = image.strip(" <>")
+              repo = repo.strip(" <>")
+              desc = desc.strip(" -")
+              if not image or not repo or not desc:
+                continue
+              key = repo.lower()
+              if key in existing_repo_links:
+                continue
+              existing_repo_links.add(key)
+              label = label_from_url(repo)
+              new_entries.append(f"- ![]({image}) · [{label}]({repo}) — {desc}")
+
+          merged_lines = [line for line in current_block.strip().splitlines() if line.strip()]
+          merged_lines.extend(new_entries)
+          new_block = "\n".join(merged_lines)
+
+          new_text = f"{before}{start_marker}\n{new_block}\n{end_marker}{after}"
+          if new_text != text:
+            readme_path.write_text(new_text)
+            print("README.md updated")
+          else:
+            print("No changes detected")
+          PY
+
+      - name: Detect changes
+        id: diff
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else:
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: chore/sync-wiki-submissions
+          commit-message: "chore: sync wiki submissions to README"
+          title: "chore: sync wiki submissions to README"
+          body: |
+            - Sync gallery entries from wiki `Submissions`
+            - Format: `- image_url | repo_url | one-liner`
+          labels: |
+            automation
