@@ -5,53 +5,23 @@ Thanks for sharing your setup ❤️
 ## How to Submit
 
 1. **Fork this repo**
-2. **Add ONE screenshot** to `screenshots/`
-   - Name it: `<username>-hyprlock.png`
-   - Example: `jayesh-hyprlock.png`
-3. **Update the table** in `README.md` with:
-   - Screenshot reference: `![](screenshots/your-username-hyprlock.png)`
-   - Your GitHub profile or repo link
-   - Short description (max 50 chars)
-4. **Open a Pull Request**
+2. **Upload your lockscreen image to the wiki** (e.g., drag/drop into the `Submissions` page) so it gets a raw URL like `https://raw.githubusercontent.com/wiki/JayeshVegda/awesome-hyprlock/your-image.png`.
+3. **Edit the wiki page `Submissions`** and add one bullet in this exact format:
+   - `- https://raw.githubusercontent.com/wiki/JayeshVegda/awesome-hyprlock/your-image.png | https://github.com/you/repo | One-line description (max ~80 chars)`
+4. The bot will open a Pull Request to sync it into `README.md`
+5. Review the generated PR preview and submit
 
-## Screenshot Requirements
+## Submission Requirements
 
-- **Format**: PNG preferred (JPEG acceptable if high quality)
-- **Resolution**: 16:9 aspect ratio or native resolution
-- **Minimum size**: 1920x1080 recommended
-- **Content**: Lock screen only (not desktop, not config files)
-- **Privacy**: No personal information visible:
-  - ❌ Names, emails, usernames
-  - ❌ IP addresses, hostnames
-  - ❌ Personal photos or sensitive data
-- **Quality**: Clear, well-lit, representative of your setup
-
-## Repository Link Rules
-
-You can link to:
-- ✅ A dedicated hyprlock repository
-- ✅ Your dotfiles repo (mention the path in description, e.g., "See `hypr/hyprlock.conf`")
-- ✅ A GitHub gist with your config
-- ❌ Direct pastebin/paste links (use gist instead)
-- ❌ Private repos (must be publicly accessible)
+- **Image URL**: Direct link to your lockscreen image (preferred: wiki-hosted PNG/WebP, 16:9 or native)
+- **Repo link**: Public GitHub repo, dotfiles repo, or gist with Hyprlock config
+- **Description**: One concise line; mention path if the config is nested
+- **Privacy**: No personal info in the image or linked content (names, emails, IPs, etc.)
 
 **Example descriptions:**
 - `Minimal blur, centered clock`
-- `Glassmorphism with swaybg - See dotfiles/hyprlock/`
+- `Glassmorphism; see dotfiles/hyprlock.conf`
 - `Animated wallpaper with time-based themes`
-
-## Table Format
-
-When adding to the gallery table, use this format:
-
-```markdown
-| ![](screenshots/your-username-hyprlock.png) | [YourName](https://github.com/yourusername) | Your description here |
-```
-
-**Important:**
-- Keep descriptions under 50 characters
-- Use your actual GitHub username
-- Ensure the link works
 
 ## Quality Standards
 
@@ -60,14 +30,6 @@ We maintain quality by:
 - **Working links**: All repo links must be accessible
 - **Real setups**: Must be your actual working configuration
 - **Appropriate content**: Keep it professional and SFW
-
-## What Gets Rejected
-
-- Low-quality/blurry screenshots
-- Broken or inaccessible repo links
-- Screenshots with personal information
-- Spam or off-topic submissions
-- Duplicate entries
 
 ## Need Help?
 
